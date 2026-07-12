@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ---- Brand palette (single source of truth) ---- */
+  --espresso-dark: #2C1810;
+  --espresso-brown: #6F4423;
+  --terracotta: #C0392B;
+  --terracotta-light: #E0654F;
+  --brass-gold: #C89B3C;
+  --palm-green: #1E5631;
+  --palm-green-light: #2F7A47;
+  --lagoon-blue: #17A2C4;
+  --lagoon-blue-light: #4FC6E3;
+  --cream: #F5EFE0;
+  --sand: #E8D9B5;
+
+  /* rgb triplets, for use inside rgba() */
+  --espresso-dark-rgb: 44, 24, 16;
+  --lagoon-blue-rgb: 23, 162, 196;
+  --palm-green-rgb: 30, 86, 49;
+  --terracotta-rgb: 192, 57, 43;
+  --brass-gold-rgb: 200, 155, 60;
+  --cream-rgb: 245, 239, 224;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--espresso-dark);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Utility layer ---- */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .text-stroke-cream {
+    -webkit-text-stroke: 1.5px var(--cream);
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  }
+}
+
+/* ---- Perforated "ticket stub" edge, used by the location card ---- */
+.ticket-perforation {
+  background-image: radial-gradient(circle, var(--cream) 3.5px, transparent 3.6px);
+  background-size: 18px 18px;
+  background-position: center;
+}
+
+.ticket-notch {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: var(--sand);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ---- Focus visibility (accessibility floor) ---- */
+:focus-visible {
+  outline: 3px solid var(--brass-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- RTL-aware direction helper ----
+   Tailwind's built-in rtl:/ltr: variants (v3.3+) key off this attribute,
+   so any element can carry rtl:flex-row-reverse, rtl:text-right, etc. */
+[dir='rtl'] {
+  text-align: right;
+}
+
+.font-arabic {
+  font-family: 'Noto Kufi Arabic', 'DM Sans', sans-serif;
+}
